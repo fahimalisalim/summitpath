@@ -1,0 +1,490 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Summit Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a directory of free AI courses. The hero pairs the headline with a three-question
+   quiz that points visitors to a few starting courses. A short "why free" statement and
+   a provider strip sit around the catalog. */
+:root {
+  --bg: #E8EDEE;
+  --surface: #F6F8F7;
+  --ink: #11222B;
+  --ink-2: #4A5B63;
+  --line: #C3CFD2;
+  --accent: #C2410C;
+  --accent-ink: #FFFFFF;
+  --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1A20; --surface: #15252D; --ink: #E6EEF0; --ink-2: #9DB0B7;
+    --line: #284049; --accent: #FF7A3D; --accent-ink: #1A0B03;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1A20; --surface: #15252D; --ink: #E6EEF0; --ink-2: #9DB0B7;
+  --line: #284049; --accent: #FF7A3D; --accent-ink: #1A0B03;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  padding-inline: 1rem;
+  padding-block: 0 3rem;
+}
+.wrap { max-width: 72rem; margin-inline: auto; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Top bar */
+.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.5rem; padding-block: 1.25rem; }
+.mark { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem; letter-spacing: -0.01em; text-decoration: none; display: inline-flex; align-items: center; gap: 0.55rem; }
+.mark svg { width: 1.5rem; height: 1.5rem; flex: none; }
+.nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; font-size: 0.9rem; }
+.nav a { text-decoration: none; color: var(--ink-2); }
+.nav a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; }
+
+/* Hero */
+.hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 2rem 3rem; align-items: start; padding-block: 2.5rem 3.5rem; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 1rem; }
+h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 1.25rem; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--accent); }
+.lede { font-size: 1.125rem; color: var(--ink-2); max-width: 34rem; margin: 0 0 1.75rem; }
+.cta { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; }
+.btn { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 1.25rem; font: 600 0.95rem var(--font-body); border-radius: 4px; text-decoration: none; cursor: pointer; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn:hover { filter: brightness(1.08); }
+.facts { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; margin: 0; padding: 0; list-style: none; }
+
+/* Quiz */
+.quiz { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 1.4rem; min-width: 0; }
+.quiz-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1rem; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 0.9rem; }
+.quiz-top span:first-child { color: var(--accent); }
+.q { font-family: var(--font-display); font-weight: 700; font-size: 1.45rem; line-height: 1.15; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+.q:focus { outline: none; }
+.opts { display: grid; gap: 0.5rem; margin-top: 1.1rem; }
+.opts button { text-align: left; padding: 0.75rem 1rem; min-height: 2.75rem; border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 4px; font: 500 0.95rem var(--font-body); cursor: pointer; }
+.opts button:hover { border-color: var(--accent); }
+.opts button small { display: block; color: var(--ink-2); font-weight: 400; font-size: 0.82rem; margin-top: 0.1rem; }
+.quiz-actions { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1.1rem; }
+.linkbtn { display: inline-flex; align-items: center; min-height: 2.25rem; padding: 0.35rem 0; font: 600 0.9rem var(--font-body); color: var(--ink); background: transparent; border: 0; border-bottom: 2px solid var(--accent); text-decoration: none; cursor: pointer; }
+.quiz-note { margin: 0.75rem 0 0; font-size: 0.9rem; color: var(--ink-2); }
+.recs { list-style: none; margin: 1rem 0 0; padding: 0; display: flex; flex-direction: column; }
+.recs li { padding: 0.8rem 0; border-top: 1px dashed var(--line); display: grid; gap: 0.15rem; min-width: 0; }
+.rec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.25rem 1rem; }
+.rec-title { font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; line-height: 1.2; }
+.rec-level { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.rec-link { justify-self: start; margin-top: 0.3rem; font-weight: 600; font-size: 0.88rem; }
+
+/* Provider strip */
+.from { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.6rem 2rem; padding-block: 1.1rem; border-block: 1px solid var(--line); margin-bottom: 2rem; }
+.from-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+.from ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.35rem 1.5rem; min-width: 0; }
+.from li { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; color: var(--ink-2); }
+.from + section .section-head { border-top: 0; padding-top: 0; }
+
+/* Catalog */
+.section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 2rem; padding-top: 2rem; border-top: 1px solid var(--line); margin-bottom: 1.5rem; }
+h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 3.4vw, 2.4rem); letter-spacing: -0.02em; line-height: 1.05; margin: 0; text-wrap: balance; }
+.section-head p { margin: 0.5rem 0 0; color: var(--ink-2); max-width: 36rem; }
+.filters { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: flex-end; margin-bottom: 1.25rem; }
+.filter-group { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+.filter-label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+.seg { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.seg button { font: 500 0.88rem var(--font-body); color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 4px; padding: 0.5rem 0.85rem; min-height: 2.5rem; cursor: pointer; }
+.seg button:hover { border-color: var(--ink-2); }
+.seg button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.count { font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-2); margin: 0 0 1rem; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); gap: 1rem; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 1.15rem; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+.level { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+.card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+.prov { font-size: 0.85rem; color: var(--ink-2); }
+.card .prov { margin-top: -0.25rem; }
+.card p { margin: 0; color: var(--ink); font-size: 0.94rem; }
+.spec { margin: 0.25rem 0 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.35rem 0.9rem; font-size: 0.86rem; padding-top: 0.75rem; border-top: 1px dashed var(--line); margin-top: auto; }
+.spec dt { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); padding-top: 0.15rem; }
+.spec dd { margin: 0; color: var(--ink-2); }
+.go { align-self: flex-start; display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; margin-top: 0.4rem; padding: 0 1rem; font: 600 0.9rem var(--font-body); text-decoration: none; color: var(--ink); border: 1.5px solid var(--ink); border-radius: 4px; }
+.go:hover { background: var(--ink); color: var(--bg); }
+.empty { padding: 2rem 0; color: var(--ink-2); }
+
+/* Why free */
+.why { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 1.5rem 3rem; padding-block: 2rem 2.5rem; border-top: 1px solid var(--line); }
+.why-body { display: flex; flex-direction: column; gap: 1rem; max-width: 40rem; min-width: 0; }
+.why-body p { margin: 0; font-size: 1.05rem; color: var(--ink); }
+
+/* How it works */
+.how { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1.5rem 2.5rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+.how h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin: 0 0 0.4rem; }
+.how p { margin: 0; color: var(--ink-2); }
+footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-2); }
+
+@media (max-width: 52rem) {
+  .hero { grid-template-columns: minmax(0, 1fr); padding-block: 1.5rem 2.5rem; }
+  .why { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="#top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><ellipse cx="12" cy="12" rx="10" ry="7"/><ellipse cx="12" cy="12.5" rx="6.2" ry="4"/><circle cx="12.5" cy="13" r="1.6" fill="var(--accent)" stroke="none"/></svg>
+      Summit Path
+    </a>
+    <nav class="nav" aria-label="Page sections">
+      <a href="#why">About</a>
+      <a href="#courses">Courses</a>
+      <a href="#how">How it works</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="top">
+    <div>
+      <p class="eyebrow">Free AI courses · Every level</p>
+      <h1>The best free AI courses, sorted by what you already <em>know</em>.</h1>
+      <p class="lede">Summit Path collects free courses from universities and AI labs and sorts them into beginner, intermediate, and advanced. Every link goes straight to the provider.</p>
+      <div class="cta">
+        <a class="btn primary" href="#courses">Browse the courses</a>
+        <a class="btn" href="#how">How it works</a>
+      </div>
+      <ul class="facts">
+        <li>20 courses</li>
+        <li>3 levels</li>
+        <li>Checked 3 Oct 2026</li>
+      </ul>
+    </div>
+    <aside class="quiz" id="quiz" aria-live="polite"></aside>
+  </section>
+
+  <section class="why" id="why" aria-labelledby="why-h">
+    <h2 id="why-h">What is Summit Path?</h2>
+    <div class="why-body">
+      <p>AI is already part of how people work, study, and make things. Understanding it should not depend on being able to pay for a course.</p>
+      <p>Some of the best teaching on the subject is already free. It is spread across university sites, company academies, and video channels, and it is hard to know where to start.</p>
+      <p>Summit Path puts it in one place, sorted by what you already know, so anyone who wants to learn can pick a course and begin.</p>
+    </div>
+  </section>
+
+  <div class="from">
+    <span class="from-label">Courses from</span>
+    <ul>
+      <li>Microsoft</li>
+      <li>Google</li>
+      <li>MIT</li>
+      <li>Anthropic</li>
+      <li>Stanford</li>
+      <li>OpenAI</li>
+      <li>Hugging Face</li>
+      <li>DeepLearning.AI</li>
+      <li>Kaggle</li>
+      <li>fast.ai</li>
+      <li>Andrej Karpathy</li>
+      <li>3Blue1Brown</li>
+      <li>Full Stack Deep Learning</li>
+      <li>University of Helsinki</li>
+    </ul>
+  </div>
+
+  <section id="courses" aria-labelledby="courses-h">
+    <div class="section-head">
+      <div>
+        <h2 id="courses-h">Pick your level</h2>
+        <p>Levels reflect what each course says you need to know first. Start where the prerequisites match you.</p>
+      </div>
+    </div>
+    <div class="filters">
+      <div class="filter-group">
+        <span class="filter-label" id="lvl-l">Level</span>
+        <div class="seg" id="lvl" role="group" aria-labelledby="lvl-l"></div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label" id="code-l">Coding</span>
+        <div class="seg" id="code" role="group" aria-labelledby="code-l"></div>
+      </div>
+    </div>
+    <p class="count" id="count" aria-live="polite"></p>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="how" id="how">
+    <div>
+      <h3>Sorted by prerequisites</h3>
+      <p>We assign levels from what each course says you need to know, such as coding experience or math. They are our judgment, not the provider's label.</p>
+    </div>
+    <div>
+      <h3>Links go to the source</h3>
+      <p>Each course stays on its provider's own site. Summit Path does not host, copy, or resell any of it.</p>
+    </div>
+    <div>
+      <h3>Free can have limits</h3>
+      <p>Some courses charge for certificates or ask for a free account. The Cost line on each card says which.</p>
+    </div>
+  </section>
+
+  <footer>Course details were checked on 3 October 2026 and can change. Confirm cost and requirements on the provider's site before you start.</footer>
+</div>
+
+<script>
+(function () {
+  var LEVELS = [
+    { id: "all", name: "All levels" },
+    { id: "beginner", name: "Beginner" },
+    { id: "intermediate", name: "Intermediate" },
+    { id: "advanced", name: "Advanced" }
+  ];
+  var CODING = [
+    { id: "all", name: "Any" },
+    { id: "no", name: "No coding needed" },
+    { id: "yes", name: "Coding required" }
+  ];
+  var COURSES = [
+    { level: "beginner", code: false, title: "Elements of AI", provider: "University of Helsinki and MinnaLearn",
+      url: "https://www.elementsofai.com/",
+      blurb: "A plain introduction to what AI is and what it can and cannot do. Part 2 adds a hands-on look at building AI.",
+      length: "Self-paced", needs: "Nothing for Part 1. Basic Python helps in Part 2.", cost: "Free · certificate available" },
+    { level: "beginner", code: false, title: "AI for Everyone", provider: "Andrew Ng, DeepLearning.AI (on Coursera)",
+      url: "https://www.coursera.org/learn/ai-for-everyone",
+      blurb: "A non-technical overview of AI: how it works, how to run AI projects, how companies use it, and its effect on society.",
+      length: "About 7 hours, 4 modules", needs: "Nothing", cost: "Free to learn · certificate is paid" },
+    { level: "beginner", code: false, title: "Introduction to Generative AI", provider: "Google Skills (Google Cloud)",
+      url: "https://www.skills.google/paths/118",
+      blurb: "A short learning path on generative AI, from large language models to responsible AI, with hands-on activities in the Google Cloud console.",
+      length: "4 activities", needs: "Nothing. A free account is required.", cost: "Free" },
+    { level: "beginner", code: false, title: "Anthropic Courses", provider: "Anthropic",
+      url: "https://anthropic.skilljar.com/",
+      blurb: "A catalog of more than 30 courses. Start with Claude 101 or AI Capabilities and Limitations. Later courses cover the Claude API and Model Context Protocol.",
+      length: "Varies by course", needs: "Nothing for the intro courses. A free Skilljar account is required.", cost: "Free · completion certificates" },
+    { level: "beginner", code: true, title: "Generative AI for Beginners", provider: "Microsoft",
+      url: "https://github.com/microsoft/generative-ai-for-beginners",
+      blurb: "21 lessons on building generative AI apps. Each has a short video, a written lesson, and code in Python and TypeScript.",
+      length: "21 lessons", needs: "Basic Python or TypeScript", cost: "Free and open source · running the examples may need paid API access" },
+    { level: "beginner", code: false, title: "OpenAI Academy", provider: "OpenAI",
+      url: "https://academy.openai.com/",
+      blurb: "14 self-paced courses on using AI at work, building with the OpenAI API and Codex, leading AI adoption, and teaching with AI.",
+      length: "30 to 180 minutes per course", needs: "A ChatGPT account", cost: "Free · badges and pathway certificates" },
+    { level: "beginner", code: true, title: "AI for Beginners", provider: "Microsoft",
+      url: "https://github.com/microsoft/ai-for-beginners",
+      blurb: "A 12-week curriculum covering neural networks, computer vision, language processing, and AI ethics, taught with Jupyter notebooks.",
+      length: "12 weeks, 24 lessons", needs: "No formal prerequisites. Lessons use Python notebooks.", cost: "Free and open source" },
+
+    { level: "intermediate", code: true, title: "Machine Learning Crash Course", provider: "Google",
+      url: "https://developers.google.com/machine-learning/crash-course",
+      blurb: "From regression and classification to neural networks, embeddings, and large language models, taught with animated videos, interactive visuals, and exercises.",
+      length: "Self-paced", needs: "Modules are self-contained. See the course's prerequisites page.", cost: "Free" },
+    { level: "intermediate", code: true, title: "Kaggle Learn", provider: "Kaggle",
+      url: "https://www.kaggle.com/learn",
+      blurb: "Short, practical micro-courses on Python, pandas, data visualization, and machine learning.",
+      length: "A few hours per course", needs: "Nothing. The Python course starts from the basics.", cost: "Free" },
+    { level: "intermediate", code: true, title: "Practical Deep Learning for Coders", provider: "fast.ai",
+      url: "https://course.fast.ai/",
+      blurb: "Build and train deep learning models with PyTorch and fastai, learning from working examples before the theory.",
+      length: "9 lessons of about 90 minutes in Part 1", needs: "About a year of coding and high school math", cost: "Free · the book is free online too" },
+    { level: "intermediate", code: true, title: "AI Agents Course", provider: "Hugging Face",
+      url: "https://huggingface.co/learn/agents-course/unit0/introduction",
+      blurb: "Learn what AI agents are and build them with smolagents, LlamaIndex, and LangGraph, with assignments and challenges.",
+      length: "Self-paced, about 3 to 4 hours per unit", needs: "Basic Python and a basic idea of how LLMs work", cost: "Free · certification is free too" },
+    { level: "intermediate", code: false, title: "Neural Networks", provider: "3Blue1Brown",
+      url: "https://www.3blue1brown.com/topics/neural-networks",
+      blurb: "A visual video series that shows how neural networks work and how they learn.",
+      length: "Video series", needs: "No coding. Some math background helps.", cost: "Free on YouTube" },
+    { level: "intermediate", code: true, title: "Machine Learning Specialization", provider: "Andrew Ng, DeepLearning.AI",
+      url: "https://www.deeplearning.ai/courses/machine-learning-specialization/",
+      blurb: "Three courses on supervised and unsupervised learning, neural networks, decision trees, recommender systems, and reinforcement learning, aimed at beginners.",
+      length: "About 95 hours, 3 courses", needs: "Basic coding and high school math", cost: "Free to learn · certificate is paid" },
+    { level: "intermediate", code: true, title: "AI Agents for Beginners", provider: "Microsoft",
+      url: "https://github.com/microsoft/ai-agents-for-beginners",
+      blurb: "18 lessons on building AI agents, from core ideas through production and security, with Python code and videos.",
+      length: "18 lessons", needs: "Basic programming. Generative AI for Beginners is recommended first.", cost: "Free and open source · some examples may need an Azure account" },
+    { level: "intermediate", code: true, title: "LLM Bootcamp", provider: "The Full Stack (Full Stack Deep Learning)",
+      url: "https://fullstackdeeplearning.com/llm-bootcamp/",
+      blurb: "Recorded lectures on building apps with large language models, from prompt engineering to LLMOps and user experience design.",
+      length: "Recorded two-day bootcamp from 2023", needs: "Python programming", cost: "Free" },
+
+    { level: "advanced", code: true, title: "LLM Course", provider: "Hugging Face",
+      url: "https://huggingface.co/learn/llm-course/chapter1/1",
+      blurb: "12 chapters on Transformers, fine-tuning, tokenizers, and modern LLM techniques using the Hugging Face libraries.",
+      length: "12 chapters, self-paced", needs: "Strong Python. Some deep learning is recommended.", cost: "Free, no ads" },
+    { level: "advanced", code: true, title: "Neural Networks: Zero to Hero", provider: "Andrej Karpathy",
+      url: "https://karpathy.ai/zero-to-hero.html",
+      blurb: "Build neural networks from scratch in code, from backpropagation up to a GPT-style transformer and tokenization.",
+      length: "Videos from 56 minutes to 2 hours 25 minutes", needs: "Solid Python and intro-level math", cost: "Free on YouTube" },
+    { level: "advanced", code: true, title: "MIT 6.S191: Introduction to Deep Learning", provider: "MIT",
+      url: "https://introtodeeplearning.com/",
+      blurb: "MIT's deep learning bootcamp with nine lectures and software labs on vision, language, robotics, and more.",
+      length: "9 lectures plus labs", needs: "Linear algebra, calculus, and some Python", cost: "Free and open source" },
+    { level: "advanced", code: true, title: "CS336: Language Modeling from Scratch", provider: "Stanford University",
+      url: "https://cs336.stanford.edu/",
+      blurb: "Build a language model yourself, from data collection and cleaning to transformer construction, training, and evaluation.",
+      length: "Lectures on YouTube, 5 assignments on GitHub", needs: "Strong Python, PyTorch, calculus, linear algebra, probability, and ML basics", cost: "Free" },
+    { level: "advanced", code: true, title: "Deep Reinforcement Learning Course", provider: "Hugging Face",
+      url: "https://huggingface.co/learn/deep-rl-course/unit0/introduction",
+      blurb: "Theory lessons and hands-on Colab notebooks that teach deep reinforcement learning, with optional certificates. The AI vs. AI competition is currently paused.",
+      length: "Self-paced, about 3 to 4 hours per unit", needs: "A free Hugging Face account and Google Colab", cost: "Free · certificates are free too" }
+  ];
+
+  var state = { level: "all", code: "all" };
+  var grid = document.getElementById("grid");
+  var countEl = document.getElementById("count");
+  var LNAME = {};
+  LEVELS.forEach(function (l) { LNAME[l.id] = l.name; });
+
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function byTitle(t) { return COURSES.filter(function (c) { return c.title === t; })[0]; }
+
+  function segs(host, items, key) {
+    host.innerHTML = "";
+    items.forEach(function (it) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-pressed", String(state[key] === it.id));
+      b.textContent = it.name;
+      b.addEventListener("click", function () { state[key] = it.id; renderAll(); });
+      host.appendChild(b);
+    });
+  }
+
+  function render() {
+    var list = COURSES.filter(function (c) {
+      var okL = state.level === "all" || c.level === state.level;
+      var okC = state.code === "all" || (state.code === "yes") === c.code;
+      return okL && okC;
+    });
+    countEl.textContent = list.length + (list.length === 1 ? " course" : " courses");
+    grid.innerHTML = "";
+    if (!list.length) {
+      var e = document.createElement("p");
+      e.className = "empty";
+      e.textContent = "No courses match that combination. Try All levels or Any.";
+      grid.appendChild(e);
+      return;
+    }
+    list.forEach(function (c) {
+      var card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML =
+        '<div class="level">' + LNAME[c.level] + "</div>" +
+        "<h3>" + esc(c.title) + "</h3>" +
+        '<div class="prov">' + esc(c.provider) + "</div>" +
+        "<p>" + esc(c.blurb) + "</p>" +
+        '<dl class="spec"><dt>Length</dt><dd>' + esc(c.length) + "</dd><dt>Needs</dt><dd>" + esc(c.needs) + "</dd><dt>Cost</dt><dd>" + esc(c.cost) + "</dd></dl>" +
+        '<a class="go" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">Go to course <span aria-hidden="true">↗</span></a>';
+      grid.appendChild(card);
+    });
+  }
+
+  function renderAll() {
+    segs(document.getElementById("lvl"), LEVELS, "level");
+    segs(document.getElementById("code"), CODING, "code");
+    render();
+  }
+  renderAll();
+
+  /* Quick quiz */
+  var QUIZ = [
+    { key: "exp", q: "Have you used AI tools like chatbots before?", opts: [
+      { v: 0, t: "Never", d: "I'm new to this" },
+      { v: 1, t: "A few times", d: "I've tried a chatbot or two" },
+      { v: 2, t: "Regularly", d: "I use AI tools most weeks" } ] },
+    { key: "code", q: "Do you write code?", opts: [
+      { v: 0, t: "No" },
+      { v: 1, t: "A little", d: "Some Python or similar" },
+      { v: 2, t: "Yes, comfortably" } ] },
+    { key: "goal", q: "What do you want to do with AI?", opts: [
+      { v: "understand", t: "Understand it", d: "How it works and what it can do" },
+      { v: "work", t: "Use it in my work", d: "Get more done with AI tools" },
+      { v: "build", t: "Build with it", d: "Train models or make AI apps" } ] }
+  ];
+  var quiz = { step: 0, ans: {} };
+  var quizHost = document.getElementById("quiz");
+
+  function recommend(a) {
+    var titles, note = "";
+    if (a.goal === "build") {
+      if (a.code === 0) {
+        titles = ["Kaggle Learn", "Elements of AI", "AI for Everyone"];
+        note = "Building with AI needs some Python. Kaggle Learn's Python course starts from the basics.";
+      } else if (a.code === 1) {
+        titles = ["Kaggle Learn", "Machine Learning Crash Course", "Generative AI for Beginners"];
+      } else if (a.exp === 2) {
+        titles = ["Practical Deep Learning for Coders", "LLM Course", "Neural Networks: Zero to Hero"];
+      } else {
+        titles = ["Practical Deep Learning for Coders", "Machine Learning Specialization", "Neural Networks: Zero to Hero"];
+      }
+    } else if (a.goal === "work") {
+      if (a.code === 0) titles = ["AI for Everyone", "Introduction to Generative AI", "Anthropic Courses"];
+      else if (a.code === 1) titles = ["Anthropic Courses", "Generative AI for Beginners", "Introduction to Generative AI"];
+      else titles = ["Generative AI for Beginners", "AI Agents Course", "LLM Course"];
+    } else {
+      titles = a.exp === 0
+        ? ["Elements of AI", "AI for Everyone", "Neural Networks"]
+        : ["Anthropic Courses", "AI for Everyone", "Neural Networks"];
+    }
+    return { courses: titles.map(byTitle), note: note };
+  }
+
+  function renderQuiz(focusHead) {
+    var s = quiz.step, html = "";
+    if (s < QUIZ.length) {
+      var Q = QUIZ[s];
+      html += '<div class="quiz-top"><span>Quick quiz</span><span>Question ' + (s + 1) + " of " + QUIZ.length + "</span></div>";
+      html += '<h2 class="q" id="quiz-q" tabindex="-1">' + esc(Q.q) + "</h2>";
+      html += '<div class="opts">';
+      Q.opts.forEach(function (o, i) {
+        html += '<button type="button" data-i="' + i + '">' + esc(o.t) + (o.d ? "<small>" + esc(o.d) + "</small>" : "") + "</button>";
+      });
+      html += "</div>";
+      if (s > 0) html += '<div class="quiz-actions"><button type="button" class="linkbtn" id="quiz-back">Back</button></div>';
+    } else {
+      var r = recommend(quiz.ans);
+      html += '<div class="quiz-top"><span>Your starting points</span><span>3 courses</span></div>';
+      html += '<h2 class="q" id="quiz-q" tabindex="-1">Start with these</h2>';
+      if (r.note) html += '<p class="quiz-note">' + esc(r.note) + "</p>";
+      html += '<ul class="recs">';
+      r.courses.forEach(function (c) {
+        html += '<li><div class="rec-head"><span class="rec-title">' + esc(c.title) + '</span><span class="rec-level">' + LNAME[c.level] + "</span></div>" +
+          '<span class="prov">' + esc(c.provider) + "</span>" +
+          '<a class="linkbtn rec-link" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">Go to course <span aria-hidden="true">↗</span></a></li>';
+      });
+      html += "</ul>";
+      html += '<div class="quiz-actions"><button type="button" class="linkbtn" id="quiz-restart">Start over</button><a class="linkbtn" href="#courses">See all courses</a></div>';
+    }
+    quizHost.innerHTML = html;
+
+    if (s < QUIZ.length) {
+      quizHost.querySelectorAll(".opts button").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var o = QUIZ[quiz.step].opts[+b.getAttribute("data-i")];
+          quiz.ans[QUIZ[quiz.step].key] = o.v;
+          quiz.step++;
+          renderQuiz(true);
+        });
+      });
+      var back = document.getElementById("quiz-back");
+      if (back) back.addEventListener("click", function () { quiz.step--; renderQuiz(true); });
+    } else {
+      document.getElementById("quiz-restart").addEventListener("click", function () { quiz = { step: 0, ans: {} }; renderQuiz(true); });
+    }
+    if (focusHead) {
+      var h = document.getElementById("quiz-q");
+      if (h) h.focus({ preventScroll: true });
+    }
+  }
+  renderQuiz(false);
+})();
+</script>
+
+</body></html>
