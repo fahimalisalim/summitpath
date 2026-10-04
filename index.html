@@ -167,6 +167,7 @@ h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem
 .field { display: grid; gap: 0.35rem; min-width: 0; }
 .field label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
 .field .hint { font-size: 0.82rem; color: var(--ink-2); }
+.form-privacy { margin: 0; font-size: 0.82rem; color: var(--ink-2); }
 .field textarea { resize: vertical; min-height: 6rem; line-height: 1.5; }
 .field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; }
 .form-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; }
@@ -178,6 +179,8 @@ button.btn:disabled { opacity: 0.6; cursor: default; }
 .how { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1.5rem 2.5rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--line); }
 .how h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin: 0 0 0.4rem; }
 .how p { margin: 0; color: var(--ink-2); }
+footer p { margin: 0 0 0.6rem; max-width: 70ch; line-height: 1.55; }
+footer p:last-child { margin-bottom: 0; }
 footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-2); }
 
 @media (max-width: 52rem) {
@@ -330,6 +333,7 @@ footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--lin
         <button class="btn primary" type="submit" id="suggest-send">Send suggestion</button>
         <p class="form-status" id="suggest-status" role="status" aria-live="polite"></p>
       </div>
+      <p class="form-privacy">Details you send through the Suggest a course form are used only to review your suggestion.</p>
     </form>
   </section>
 
@@ -348,7 +352,12 @@ footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--lin
     </div>
   </section>
 
-  <footer>Course details can change. Confirm cost and requirements on the provider's site before you start.</footer>
+  <footer>
+    <p>Course details can change. Confirm cost and requirements on the provider's site before you start.</p>
+    <p>Summit Path is an independent directory. It is not affiliated with, endorsed by, or sponsored by any course provider listed here. All course names, provider names, and logos belong to their respective owners and are used only to identify the courses. Course content is owned by its providers and is not hosted on this site.</p>
+    <p>Links lead to third-party websites that Summit Path does not control and is not responsible for. Information on this site is provided as is, without warranty of any kind.</p>
+    <p>&copy; 2026 Summit Path&trade;. All rights reserved.</p>
+  </footer>
 </div>
 
 <script>
