@@ -15,6 +15,8 @@
   --line: #C3CFD2;
   --accent: #C2410C;
   --accent-ink: #FFFFFF;
+  --free-solid: #15803D; --free-ink: #FFFFFF; --free-text: #166534;
+  --paid-bg: #FEF3C7; --paid-text: #78350F; --paid-line: #D97706;
   --font-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -23,12 +25,14 @@
   :root:not([data-theme="light"]) {
     --bg: #0E1A20; --surface: #15252D; --ink: #E6EEF0; --ink-2: #9DB0B7;
     --line: #284049; --accent: #FF7A3D; --accent-ink: #1A0B03;
+    --free-solid: #4ADE80; --free-ink: #052E16; --free-text: #86EFAC; --paid-bg: #3A2A0B; --paid-text: #FCD34D; --paid-line: #B7791F;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #0E1A20; --surface: #15252D; --ink: #E6EEF0; --ink-2: #9DB0B7;
   --line: #284049; --accent: #FF7A3D; --accent-ink: #1A0B03;
+  --free-solid: #4ADE80; --free-ink: #052E16; --free-text: #86EFAC; --paid-bg: #3A2A0B; --paid-text: #FCD34D; --paid-line: #B7791F;
   color-scheme: dark;
 }
 
@@ -126,6 +130,50 @@ h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem
 .why-body { display: flex; flex-direction: column; gap: 1rem; max-width: 40rem; min-width: 0; }
 .why-body p { margin: 0; font-size: 1.05rem; color: var(--ink); }
 
+/* Tools: path builder, suggestion form */
+.tool { margin-top: 4rem; }
+.picker { display: grid; gap: 1.25rem; margin-bottom: 1.75rem; }
+.choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 0.5rem; }
+.choice { text-align: left; padding: 0.7rem 0.9rem; min-height: 2.75rem; border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 4px; font: 500 0.92rem var(--font-body); cursor: pointer; }
+.choice small { display: block; margin-top: 0.1rem; font-weight: 400; font-size: 0.8rem; color: var(--ink-2); }
+.choice:hover { border-color: var(--ink-2); }
+.choice[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.choice[aria-pressed="true"] small { color: var(--bg); opacity: 0.8; }
+
+.path-result { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 1.25rem; min-width: 0; }
+.path-title { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; letter-spacing: -0.01em; line-height: 1.15; margin: 0; }
+.path-sub { margin: 0.25rem 0 0; color: var(--ink-2); font-size: 0.92rem; }
+.warn { margin: 0.9rem 0 0; font-size: 0.9rem; border: 1px solid var(--accent); border-radius: 4px; padding: 0.6rem 0.8rem; }
+.steps { list-style: none; margin: 1rem 0 0; padding: 0; }
+.step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0 0.75rem; padding: 1rem 0; border-top: 1px dashed var(--line); }
+.step-n { font-family: var(--font-mono); font-weight: 500; font-size: 1.1rem; line-height: 1.4; color: var(--accent); }
+.step-body { display: grid; gap: 0.2rem; min-width: 0; }
+.step-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.15rem 1rem; }
+.step-title { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; line-height: 1.2; }
+.step-why { margin: 0.1rem 0 0; font-size: 0.94rem; }
+.cost { margin: 0.45rem 0 0; }
+.cost-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.chip { font-family: var(--font-display); font-weight: 800; font-size: 0.72rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.25rem 0.5rem; border-radius: 6px; border: 2px solid transparent; line-height: 1.1; }
+.chip-free { background: var(--free-solid); color: var(--free-ink); }
+.chip-cert { border-color: var(--free-solid); color: var(--free-text); }
+.chip-paid { background: var(--paid-bg); color: var(--paid-text); border-color: var(--paid-line); }
+.cost .cost-note { margin: 0.4rem 0 0; font-size: 0.78rem; line-height: 1.4; color: var(--ink-2); }
+.step-meta { margin: 0.1rem 0 0; font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-2); }
+.step-link { justify-self: start; margin-top: 0.3rem; font-weight: 600; font-size: 0.88rem; }
+
+.ctl { font: 500 0.95rem var(--font-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 0.6rem 0.75rem; min-height: 2.75rem; width: 100%; max-width: 100%; }
+.ctl:hover { border-color: var(--ink-2); }
+.suggest { display: grid; gap: 1rem; max-width: 40rem; }
+.field { display: grid; gap: 0.35rem; min-width: 0; }
+.field label { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+.field .hint { font-size: 0.82rem; color: var(--ink-2); }
+.field textarea { resize: vertical; min-height: 6rem; line-height: 1.5; }
+.field-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; }
+.form-bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; }
+.form-status { margin: 0; font-size: 0.95rem; min-height: 1.5rem; }
+.form-status.err { color: var(--accent); font-weight: 600; }
+button.btn:disabled { opacity: 0.6; cursor: default; }
+
 /* How it works */
 .how { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1.5rem 2.5rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--line); }
 .how h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin: 0 0 0.4rem; }
@@ -148,6 +196,8 @@ footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--lin
     <nav class="nav" aria-label="Page sections">
       <a href="#why">About</a>
       <a href="#courses">Courses</a>
+      <a href="#path">Learning path</a>
+      <a href="#suggest">Suggest a course</a>
       <a href="#how">How it works</a>
     </nav>
   </header>
@@ -161,11 +211,6 @@ footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--lin
         <a class="btn primary" href="#courses">Browse the courses</a>
         <a class="btn" href="#how">How it works</a>
       </div>
-      <ul class="facts">
-        <li>20 courses</li>
-        <li>3 levels</li>
-        <li>Checked 3 Oct 2026</li>
-      </ul>
     </div>
     <aside class="quiz" id="quiz" aria-live="polite"></aside>
   </section>
@@ -220,6 +265,74 @@ footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--lin
     <div class="grid" id="grid"></div>
   </section>
 
+  <section class="tool" id="path" aria-labelledby="path-h">
+    <div class="section-head">
+      <div>
+        <h2 id="path-h">Build your learning path</h2>
+        <p>Pick a goal and where you are starting. You get the courses in the order to take them.</p>
+      </div>
+    </div>
+    <div class="picker">
+      <div class="filter-group">
+        <span class="filter-label" id="goal-l">Your goal</span>
+        <div class="choices" id="goal" role="group" aria-labelledby="goal-l"></div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label" id="start-l">Where you are starting</span>
+        <div class="choices" id="start" role="group" aria-labelledby="start-l"></div>
+      </div>
+    </div>
+    <div class="path-result" id="path-out" aria-live="polite"></div>
+  </section>
+
+  <section class="tool" id="suggest" aria-labelledby="suggest-h">
+    <div class="section-head">
+      <div>
+        <h2 id="suggest-h">Suggest a course</h2>
+        <p>Know a free AI course that belongs here? Send it in. Please suggest only courses that are free to learn.</p>
+      </div>
+    </div>
+    <form class="suggest" id="suggest-form" name="suggest-a-course" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+      <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <div class="field-row">
+        <div class="field">
+          <label for="s-name">Course name</label>
+          <input class="ctl" id="s-name" name="course-name" type="text" required maxlength="120" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="s-provider">Provider</label>
+          <input class="ctl" id="s-provider" name="provider" type="text" maxlength="120" autocomplete="off">
+        </div>
+      </div>
+      <div class="field">
+        <label for="s-url">Link to the course</label>
+        <input class="ctl" id="s-url" name="course-url" type="url" required placeholder="https://" maxlength="300" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="s-level">Level</label>
+        <select class="ctl" id="s-level" name="level">
+          <option value="Not sure">Not sure</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="s-notes">Why it belongs here</label>
+        <textarea class="ctl" id="s-notes" name="notes" maxlength="500" rows="4"></textarea>
+      </div>
+      <div class="field">
+        <label for="s-email">Your email</label>
+        <input class="ctl" id="s-email" name="email" type="email" maxlength="120" autocomplete="email">
+        <span class="hint">Optional. Add it only if you want a reply.</span>
+      </div>
+      <div class="form-bottom">
+        <button class="btn primary" type="submit" id="suggest-send">Send suggestion</button>
+        <p class="form-status" id="suggest-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </section>
+
   <section class="how" id="how">
     <div>
       <h3>Sorted by prerequisites</h3>
@@ -235,7 +348,7 @@ footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--lin
     </div>
   </section>
 
-  <footer>Course details were checked on 3 October 2026 and can change. Confirm cost and requirements on the provider's site before you start.</footer>
+  <footer>Course details can change. Confirm cost and requirements on the provider's site before you start.</footer>
 </div>
 
 <script>
@@ -339,6 +452,18 @@ footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--lin
   var state = { level: "all", code: "all" };
   var grid = document.getElementById("grid");
   var countEl = document.getElementById("count");
+  function costHtml(text) {
+    var parts = String(text).split(" · ");
+    var cap = function (t) { return t.charAt(0).toUpperCase() + t.slice(1); };
+    var chips = '<span class="chip chip-free">' + esc(cap(parts[0])) + "</span>", note = "";
+    if (parts[1]) {
+      if (/paid/.test(parts[1]) && /certif/.test(parts[1])) chips += '<span class="chip chip-paid">' + esc(cap(parts[1])) + "</span>";
+      else if (/certif|badge/.test(parts[1])) chips += '<span class="chip chip-cert">' + esc(cap(parts[1])) + "</span>";
+      else note = cap(parts[1]) + ".";
+    }
+    return '<div class="cost"><div class="cost-chips">' + chips + "</div>" +
+      (note ? '<p class="cost-note">' + esc(note) + "</p>" : "") + "</div>";
+  }
   var LNAME = {};
   LEVELS.forEach(function (l) { LNAME[l.id] = l.name; });
 
@@ -363,7 +488,9 @@ footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--lin
       var okC = state.code === "all" || (state.code === "yes") === c.code;
       return okL && okC;
     });
-    countEl.textContent = list.length + (list.length === 1 ? " course" : " courses");
+    var seen = {}, nLv = 0;
+    list.forEach(function (c) { if (!seen[c.level]) { seen[c.level] = 1; nLv++; } });
+    countEl.textContent = list.length + (list.length === 1 ? " course" : " courses") + " · " + nLv + (nLv === 1 ? " level" : " levels");
     grid.innerHTML = "";
     if (!list.length) {
       var e = document.createElement("p");
@@ -484,6 +611,127 @@ footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--lin
     }
   }
   renderQuiz(false);
+
+  /* Learning path builder */
+  var STARTS = [
+    { v: 0, t: "Brand new to AI", d: "I have not used AI tools much" },
+    { v: 1, t: "I use AI tools", d: "Chatbots and similar, no coding" },
+    { v: 2, t: "I code a little", d: "Some Python or similar" },
+    { v: 3, t: "I code comfortably", d: "Python and some math" }
+  ];
+  /* A step shows when from <= start <= until. */
+  var PATHS = [
+    { id: "understand", name: "Understand AI", d: "How it works and what it can do. No coding.",
+      steps: [
+        { t: "Elements of AI", until: 0, why: "A plain introduction to what AI is and what it can and cannot do." },
+        { t: "AI for Everyone", until: 1, why: "A non-technical look at how AI works and how organizations use it." },
+        { t: "Introduction to Generative AI", until: 2, why: "A short path on large language models and responsible AI, with hands-on activities." },
+        { t: "Neural Networks", until: 3, why: "A visual series on how neural networks work and how they learn." } ] },
+    { id: "work", name: "Use AI at work", d: "Get more done with AI tools. No coding.",
+      steps: [
+        { t: "AI for Everyone", until: 0, why: "Start with how AI works and where organizations use it." },
+        { t: "Introduction to Generative AI", until: 1, why: "The basics of large language models and responsible use." },
+        { t: "Anthropic Courses", until: 3, why: "Practical courses on using Claude. Try Claude 101 or AI Capabilities and Limitations first." },
+        { t: "OpenAI Academy", until: 3, why: "Courses on applying AI at work. A ChatGPT account is required." } ] },
+    { id: "build", name: "Build with language models", d: "Make apps and agents with LLMs.",
+      steps: [
+        { t: "Kaggle Learn", until: 1, why: "Short courses on Python and data skills. The Python course starts from the basics." },
+        { t: "Generative AI for Beginners", until: 3, why: "21 lessons on building generative AI apps, with Python and TypeScript code." },
+        { t: "AI Agents for Beginners", until: 3, why: "18 lessons on building AI agents, from core ideas to production." },
+        { t: "LLM Bootcamp", until: 3, why: "Recorded lectures from 2023 on building LLM apps, from prompt engineering to LLMOps." },
+        { t: "LLM Course", until: 3, why: "A deeper dive into Transformers, fine-tuning, and tokenizers. Needs strong Python." } ] },
+    { id: "ml", name: "Learn machine learning", d: "Models, data, and deep learning.",
+      steps: [
+        { t: "Kaggle Learn", until: 1, why: "Python, pandas, and data visualization from the basics." },
+        { t: "Machine Learning Specialization", until: 2, why: "Supervised and unsupervised learning, neural networks, and recommender systems." },
+        { t: "Machine Learning Crash Course", from: 3, until: 3, why: "A fast-paced tour of regression, neural networks, embeddings, and large language models." },
+        { t: "Practical Deep Learning for Coders", until: 3, why: "Build and train deep learning models with PyTorch, working examples first." },
+        { t: "MIT 6.S191: Introduction to Deep Learning", until: 3, why: "University lectures and labs on deep learning." } ] },
+    { id: "deep", name: "Go deep on how models work", d: "Neural networks and LLMs from first principles.",
+      warnBelow: 2, warn: "These courses expect solid Python and some math. If that is not you yet, try Learn machine learning first.",
+      steps: [
+        { t: "Neural Networks", until: 3, why: "See how neural networks learn before you code one." },
+        { t: "Neural Networks: Zero to Hero", until: 3, why: "Build neural networks from scratch, up to a GPT-style transformer." },
+        { t: "CS336: Language Modeling from Scratch", until: 3, why: "Build a language model yourself, from data to training." },
+        { t: "Deep Reinforcement Learning Course", until: 3, why: "Theory and hands-on notebooks for reinforcement learning." } ] }
+  ];
+  var pathSel = { goal: "understand", start: 0 };
+  var pathOut = document.getElementById("path-out");
+
+  function pathById(id) { return PATHS.filter(function (p) { return p.id === id; })[0]; }
+  function pathSteps() {
+    var P = pathById(pathSel.goal);
+    return P.steps.filter(function (s) { return (s.from || 0) <= pathSel.start && pathSel.start <= s.until; })
+      .map(function (s) { return { course: byTitle(s.t), why: s.why }; });
+  }
+  function plural(n, one, many) { return n + " " + (n === 1 ? one : many); }
+
+  function makeChoices(host, items, key) {
+    items.forEach(function (it) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "choice";
+      b.setAttribute("aria-pressed", String(pathSel[key] === it.v));
+      b.innerHTML = esc(it.t) + "<small>" + esc(it.d) + "</small>";
+      b.addEventListener("click", function () {
+        pathSel[key] = it.v;
+        host.querySelectorAll(".choice").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+        renderPath();
+      });
+      host.appendChild(b);
+    });
+  }
+
+  function renderPath() {
+    var P = pathById(pathSel.goal), steps = pathSteps();
+    var html = '<h3 class="path-title">' + esc(P.name) + "</h3>";
+    html += '<p class="path-sub">' + plural(steps.length, "course", "courses") + ", in this order.</p>";
+    if (P.warnBelow !== undefined && pathSel.start < P.warnBelow) html += '<p class="warn">' + esc(P.warn) + "</p>";
+    html += '<ol class="steps" role="list">';
+    steps.forEach(function (s, i) {
+      var c = s.course;
+      html += '<li class="step"><span class="step-n" aria-hidden="true">' + (i + 1) + '</span><div class="step-body">' +
+        '<div class="step-head"><span class="step-title">' + esc(c.title) + '</span><span class="level">' + LNAME[c.level] + "</span></div>" +
+        '<span class="prov">' + esc(c.provider) + "</span>" +
+        '<p class="step-why">' + esc(s.why) + "</p>" +
+        '<p class="step-meta">' + esc(c.length) + "</p>" + costHtml(c.cost) +
+        '<a class="linkbtn step-link" href="' + esc(c.url) + '" target="_blank" rel="noopener noreferrer">Go to course <span aria-hidden="true">↗</span></a>' +
+        "</div></li>";
+    });
+    html += "</ol>";
+    pathOut.innerHTML = html;
+  }
+
+  makeChoices(document.getElementById("goal"), PATHS.map(function (p) { return { v: p.id, t: p.name, d: p.d }; }), "goal");
+  makeChoices(document.getElementById("start"), STARTS, "start");
+  renderPath();
+
+  /* Suggest a course form (Netlify Forms) */
+  var form = document.getElementById("suggest-form");
+  var statusEl = document.getElementById("suggest-status");
+  var sendBtn = document.getElementById("suggest-send");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var data = new FormData(form);
+    data.set("form-name", form.getAttribute("name"));
+    sendBtn.disabled = true;
+    statusEl.className = "form-status";
+    statusEl.textContent = "Sending...";
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(data).toString()
+    }).then(function (res) {
+      if (!res.ok) throw new Error("status " + res.status);
+      form.reset();
+      statusEl.textContent = "Thanks. Your suggestion was sent.";
+    }).catch(function () {
+      statusEl.className = "form-status err";
+      statusEl.textContent = "Your suggestion could not be sent. Please try again in a moment.";
+    }).then(function () {
+      sendBtn.disabled = false;
+    });
+  });
 })();
 </script>
 
